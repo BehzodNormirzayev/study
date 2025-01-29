@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Расписание уроков</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Расписание уроков</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Сгенерировать расписание</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Класс</th>
+                <th>Предмет</th>
+                <th>Учитель</th>
+                <th>Кабинет</th>
+                <th>Время начала</th>
+                <th>Время окончания</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for lesson in lessons %}
+            <tr>
+                <td>{{ lesson.class_name }}</td>
+                <td>{{ lesson.subject }}</td>
+                <td>{{ lesson.teacher.name }}</td>
+                <td>{{ lesson.classroom.number }}</td>
+                <td>{{ lesson.start_time }}</td>
+                <td>{{ lesson.end_time }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
